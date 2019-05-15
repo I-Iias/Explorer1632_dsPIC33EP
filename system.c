@@ -59,13 +59,13 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #pragma config FWDTEN = ON              // Watchdog Timer Enable bit (Watchdog timer always enabled)
 
 // FOSC
-#pragma config POSCMD = NONE            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
+#pragma config POSCMD = XT            // Primary Oscillator Mode Select bits (Primary Oscillator disabled)
 #pragma config OSCIOFNC = OFF           // OSC2 Pin Function bit (OSC2 is clock output)
 #pragma config IOL1WAY = ON             // Peripheral pin select configuration (Allow only one reconfiguration)
 #pragma config FCKSM = CSDCMD           // Clock Switching Mode bits (Both Clock switching and Fail-safe Clock Monitor are disabled)
 
 // FOSCSEL
-#pragma config FNOSC = FRC              // Oscillator Source Selection (Internal Fast RC (FRC))
+#pragma config FNOSC = PRIPLL              // Oscillator Source Selection (Internal Fast RC (FRC))
 #pragma config IESO = ON                // Two-speed Oscillator Start-up Enable bit (Start up device with FRC, then switch to user-selected oscillator source)
 
 // FGS

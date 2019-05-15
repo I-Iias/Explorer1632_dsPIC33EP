@@ -20,7 +20,7 @@ limitations under the License.
 
 #ifndef FCY
     #pragma message "This module requires a definition for the peripheral clock frequency.  Assuming FRC (3.685 MHz Fosc).  Define value if this is not correct."
-    #define FCY (3685000/2)
+    #define FCY (140000000/2)
 #endif
 
 #include <libpic30.h>

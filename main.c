@@ -28,6 +28,8 @@ limitations under the License.
  
 #include "io_mapping.h"
 
+#include "Initialize.h"
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: File Scope Variables and Functions
@@ -49,6 +51,7 @@ int main ( void )
     
     /* Call the System Initialize routine*/
     SYS_Initialize ( );
+    Hardware_Init(); 
     
     /* To determine how the LED and Buttons are mapped to the actual board
      * features, please see io_mapping.h. */

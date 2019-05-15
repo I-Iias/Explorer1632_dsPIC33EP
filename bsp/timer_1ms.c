@@ -24,7 +24,7 @@ limitations under the License.
 #include "timer_1ms.h"
 
 #ifndef SYSTEM_PERIPHERAL_CLOCK
-#define SYSTEM_PERIPHERAL_CLOCK (7370000/2)
+#define SYSTEM_PERIPHERAL_CLOCK (140000000/2)
 #pragma message "This module requires a definition for the peripheral clock frequency.  Assuming 3.685MHz Fcy (7.37MHz Fosc from FRC).  Define value if this is not correct."
 #endif
 
