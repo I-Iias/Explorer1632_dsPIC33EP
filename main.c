@@ -29,6 +29,7 @@ limitations under the License.
 #include "io_mapping.h"
 
 #include "Initialize.h"
+#include "Tasks.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -57,6 +58,7 @@ int main ( void )
      * features, please see io_mapping.h. */
     LED_Enable ( LED_BLINK_ALIVE );
     LED_Enable ( LED_BUTTON_PRESSED );
+    LED_Enable ( LED_STATUS );
 
     BUTTON_Enable ( BUTTON_DEMO );
     
@@ -81,9 +83,10 @@ int main ( void )
     while ( 1 )
     {
         adcResult = ADC_Read10bit( ADC_CHANNEL_POTENTIOMETER );
-
+        
         RTCC_TimeGet( &time );
         
+        // printf takes nearly 10ms to execute
         printf( "Time %02d:%02d:%02d   Pot = %4d\r\n", 
                 time.hour, 
                 time.minute, 
@@ -101,6 +104,11 @@ int main ( void )
         {
             LED_Off( LED_BUTTON_PRESSED );
         }
+        uint16 time_count = TMR1;
+        // Task scheduler moved to Timer1 interrupt
+        //Task_scheduler();
+        time_count = TMR1-time_count;
+        time_count = 0;
     }
 }
 

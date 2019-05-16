@@ -10,6 +10,7 @@
 
 #include "types.h"
 #include "Initialize.h"
+#include "Timer.h"
 
 
 //******************************************************************************
@@ -27,7 +28,7 @@
 void Hardware_Init (void)
 {
     INIT_OSC ();
-//    INIT_Timer1();
+    INIT_Timer1();
 
 //    Init_ADC ();
 //    Init_DMA2 ();           // for ADC

@@ -19,5 +19,6 @@ limitations under the License.
 
 #define LED_BLINK_ALIVE LED_D3
 #define LED_BUTTON_PRESSED LED_D4
+#define LED_STATUS LED_D5
 
 #define BUTTON_DEMO BUTTON_S3
