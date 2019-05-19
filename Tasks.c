@@ -9,56 +9,56 @@
 #include "io_mapping.h"
 
 
-uint16 Cnt1ms  = 0;
-uint16 Cnt10ms  = 0;
-uint16 Cnt50ms  = 0;
-uint16 Cnt100ms = 0;
-uint16 Cnt500ms = 0;
-uint16 Cnt1s    = 0;
+
 
 void Task_scheduler (void)
 {
-    if(TickFlag == 1)
-        {   
-            TickFlag = 0; 
-            Cnt1ms++;
-            Task_1ms();
-        }
-        if(Cnt1ms >= 10)
-        {   
-            Cnt1ms = 0; 
-            Cnt10ms++;
-            Task_10ms();
-        }
-        if(Cnt10ms >= 5)
-        {   
-            Cnt10ms = 0;  
-            Cnt50ms++;
-            Task_50ms();
-        }
-        if(Cnt50ms >= 2)
-        {   
-            Cnt50ms = 0;  
-            Cnt100ms++;
-            Task_100ms();
-        }
-        if(Cnt100ms >= 5)
-        {   
-            Cnt100ms = 0; 
-            Cnt500ms++;
-            Task_500ms();
-        }
-        if(Cnt500ms >= 2)
-        {   
-            Cnt500ms = 0; 
-            Cnt1s++;
-            Task_1s();
-        }
-        if(Cnt1s >= 10)
-        {   
-            Cnt1s = 0;
-            Task_10s();
-        }
+    // function variables
+    static uint16 Cnt1ms  = 0;
+    static uint16 Cnt10ms  = 0;
+    static uint16 Cnt50ms  = 0;
+    static uint16 Cnt100ms = 0;
+    static uint16 Cnt500ms = 0;
+    static uint16 Cnt1s    = 0;
+    
+    Cnt1ms++;
+    Task_1ms();
+
+    if(Cnt1ms >= 10)
+    {   
+        Cnt1ms = 0; 
+        Cnt10ms++;
+        Task_10ms();
+    }
+    if(Cnt10ms >= 5)
+    {   
+        Cnt10ms = 0;  
+        Cnt50ms++;
+        Task_50ms();
+    }
+    if(Cnt50ms >= 2)
+    {   
+        Cnt50ms = 0;  
+        Cnt100ms++;
+        Task_100ms();
+    }
+    if(Cnt100ms >= 5)
+    {   
+        Cnt100ms = 0; 
+        Cnt500ms++;
+        Task_500ms();
+    }
+    if(Cnt500ms >= 2)
+    {   
+        Cnt500ms = 0; 
+        Cnt1s++;
+        Task_1s();
+    }
+    if(Cnt1s >= 10)
+    {   
+        Cnt1s = 0;
+        Task_10s();
+    }
 }
 
 

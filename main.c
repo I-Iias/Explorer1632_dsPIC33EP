@@ -30,6 +30,7 @@ limitations under the License.
 
 #include "Initialize.h"
 #include "Tasks.h"
+#include "Timer.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -80,6 +81,10 @@ int main ( void )
     /* Clear the screen */
     printf( "\f" );   
     
+    // Task scheduler moved to Timer1 interrupt
+    //Task_scheduler();
+    RequestFunction_Timer1 ( &Task_scheduler );
+    
     while ( 1 )
     {
         adcResult = ADC_Read10bit( ADC_CHANNEL_POTENTIOMETER );
@@ -105,8 +110,7 @@ int main ( void )
             LED_Off( LED_BUTTON_PRESSED );
         }
         uint16 time_count = TMR1;
-        // Task scheduler moved to Timer1 interrupt
-        //Task_scheduler();
+
         time_count = TMR1-time_count;
         time_count = 0;
     }

@@ -10,7 +10,7 @@
 #include "Timer.h"
 #include "Tasks.h"
 
-volatile uint16 TickFlag;
+FUNCTION_HANDLER handle = NULL;
 
 void INIT_Timer1(void)
 {
@@ -27,9 +27,17 @@ void INIT_Timer1(void)
     T1CONbits.TON     = 1;            //1=0n 0=off
 }
 
+void RequestFunction_Timer1 (FUNCTION_HANDLER handle_new)
+{
+    handle = handle_new;
+}
+
 void __attribute__((__interrupt__, no_auto_psv)) _T1Interrupt(void)       // Timer 1
 {
-    TickFlag = 1;
-    Task_scheduler();
+    if(handle != NULL)
+    {
+        handle();
+    }
+    //Task_scheduler();
     IFS0bits.T1IF = 0;
 }

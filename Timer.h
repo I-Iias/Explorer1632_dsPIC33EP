@@ -10,8 +10,11 @@
 
 #include "types.h"
 
-extern volatile uint16 TickFlag;
+typedef void (*FUNCTION_HANDLER)(void);
+
 
 void INIT_Timer1 (void);
+void RequestFunction_Timer1 (FUNCTION_HANDLER handle_new);
+
 
 #endif //TIMER_H

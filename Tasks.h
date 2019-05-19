@@ -8,7 +8,7 @@
 #ifndef TASKS_H
 #define	TASKS_H
 
-#include "Timer.h"
+#include "types.h"
 
 void Task_scheduler(void);
 void Task_1ms(void);
@@ -19,4 +19,4 @@ void Task_500ms(void);
 void Task_1s(void);
 void Task_10s(void);
 
-#endif // TMD_FSG19_TASKS_H
+#endif // TASKS_H

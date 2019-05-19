@@ -15,6 +15,10 @@
     #define FALSE 0             ///< constant for FALSE
  #endif 
 
+#ifndef	NULL
+#define NULL (0)
+#endif	/* NULL */
+
  typedef unsigned char      uint8;       ///< for unsigned 8-Bit variables
  typedef unsigned short     uint16;      ///< for unsigned 16-Bit variables
  typedef unsigned long      uint32;      ///< for unsigned32-Bit variables
