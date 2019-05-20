@@ -31,6 +31,7 @@ limitations under the License.
 #include "Initialize.h"
 #include "Tasks.h"
 #include "Timer.h"
+#include "adc_dma.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -75,8 +76,13 @@ int main ( void )
     RTCC_BuildTimeGet( &time );
     RTCC_Initialize( &time );
 
-    ADC_SetConfiguration ( ADC_CONFIGURATION_DEFAULT );
-    ADC_ChannelEnable ( ADC_CHANNEL_POTENTIOMETER );
+    // old adc functions
+//    ADC_SetConfiguration ( ADC_CONFIGURATION_DEFAULT );
+//    ADC_ChannelEnable ( ADC_CHANNEL_POTENTIOMETER );
+    // new adc functions
+    ADC_ChnEnable();
+    Init_ADC ();
+    Init_DMA2();
     
     /* Clear the screen */
     printf( "\f" );   
@@ -87,7 +93,11 @@ int main ( void )
     
     while ( 1 )
     {
-        adcResult = ADC_Read10bit( ADC_CHANNEL_POTENTIOMETER );
+        
+        // old adc functions
+//        adcResult = ADC_Read10bit( ADC_CHANNEL_POTENTIOMETER );
+        // new adc functions
+        adcResult = getADCvalue (ADC_CHN_POTENTIOMETER);
         
         RTCC_TimeGet( &time );
         
