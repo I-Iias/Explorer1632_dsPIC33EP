@@ -98,15 +98,18 @@ int main ( void )
 //        adcResult = ADC_Read10bit( ADC_CHANNEL_POTENTIOMETER );
         // new adc functions
         adcResult = getADCvalue (ADC_CHN_POTENTIOMETER);
+        uint16 Temp_adc = 0;
+        Temp_adc = getADCvalue (ADC_CHN_TEMPERATURE_SENSOR);
         
         RTCC_TimeGet( &time );
         
         // printf takes nearly 10ms to execute
-        printf( "Time %02d:%02d:%02d   Pot = %4d\r\n", 
+        printf( "Time %02d:%02d:%02d   Pot = %4d, %4d\r\n", 
                 time.hour, 
                 time.minute, 
                 time.second, 
-                adcResult
+                adcResult,
+                Temp_adc
               );
 
         /* To determine how the LED and Buttons are mapped to the actual board

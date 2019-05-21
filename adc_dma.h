@@ -14,7 +14,7 @@
 #define ADC_CHN_POTENTIOMETER       0
 #define ADC_CHN_TEMPERATURE_SENSOR  1
 
-#define NumSamples 8
+#define NumSamples 128
 
 extern uint16 BufferA[NumSamples];
 extern uint16 BufferB[NumSamples];

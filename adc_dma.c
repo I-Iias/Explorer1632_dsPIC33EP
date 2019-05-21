@@ -21,10 +21,12 @@ void Init_ADC (void)
     AD1CON1bits.FORM = 0;       // Data Output Format: unsigned integer
     AD1CON1bits.SSRCG = 0;
     AD1CON1bits.SSRC = 7;       // Internal Counter (SAMC) ends sampling and starts conversion
+    // ASAM = 1 start sampling, not needed while init
 //    AD1CON1bits.ASAM = 1;       // ADC Sample Control: Sampling begins immediately after
      // conversion
     AD1CON1bits.AD12B = 1;      // 12-bit ADC operation
     AD1CON1bits.SIMSAM = 0;     // Sequential sampling of channels
+    AD1CON1bits.ADSIDL = 1;     // Discontinue module operation when device enters Idle mode
     AD1CON2bits.CHPS = 0;       // read as 0 in 12bit mode
     AD1CON3bits.ADRC = 0;       // ADC Clock is derived from Systems Clock
     AD1CON3bits.SAMC = 20;       // Auto Sample Time = 20 * TAD
@@ -67,19 +69,18 @@ void Init_DMA2(void)
 
 void __attribute__((__interrupt__, no_auto_psv)) _DMA2Interrupt(void)
 {
-    AD1CON1bits.DONE = 0;
-    AD1CON1bits.SAMP = 0;
     AD1CON1bits.ASAM = 0;           // Stop sampling
-//    AD1CON1bits.ADON = 0;       // Turn off the ADC
-    IEC1bits.DMA2IE = 0; //Set the DMA interrupt enable bit
+    // set sample clock source to manual mode, otherwise internal counter would trigger an unexpected conversion 
+    AD1CON1bits.SSRC = 0;           
+
     // check which channel was used
     if (DMAPPSbits.PPST2 == 0) // channel A selected
     {
-        ADC_value = (BufferA[0]+BufferA[1]);
+        ADC_value = (BufferA[0]+BufferA[1])/2;
     }
     else
     {
-        ADC_value = (BufferB[0]+BufferB[1]);
+        ADC_value = (BufferB[0]+BufferB[1])/2;
     }
     waitDMAinterrupt = 1;
     IFS1bits.DMA2IF = 0; //Clear the DMA interrupt flag bit
@@ -89,8 +90,9 @@ uint16 getADCvalue (uint8 channel)
 {
     AD1CHS0bits.CH0SA = channel;
     waitDMAinterrupt = 0;
-//    AD1CON1bits.ADON = 1;       // Turn on the ADC
-    IEC1bits.DMA2IE = 1; //Set the DMA interrupt enable bit
+
+    AD1CON1bits.SSRC = 7;           // set sample clock source to internal
+    // SSRC = 0, while no sampling is needed, otherwise unexpected conversion is triggered
     AD1CON1bits.ASAM = 1;           // Start sampling
     
     uint16 DMA_register = 0;
