@@ -22,3 +22,5 @@ limitations under the License.
 #define LED_STATUS LED_D5
 
 #define BUTTON_DEMO BUTTON_S3
+#define BUTTON_WR_EEPROM BUTTON_S4
+#define BUTTON_RD_EEPROM BUTTON_S5

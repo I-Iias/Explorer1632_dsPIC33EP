@@ -32,6 +32,7 @@ limitations under the License.
 #include "Tasks.h"
 #include "Timer.h"
 #include "adc_dma.h"
+#include "EEPROM_emulation.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -63,6 +64,10 @@ int main ( void )
     LED_Enable ( LED_STATUS );
 
     BUTTON_Enable ( BUTTON_DEMO );
+    BUTTON_Enable ( BUTTON_WR_EEPROM );
+    BUTTON_Enable ( BUTTON_RD_EEPROM );
+    
+    Init_EEPROM();
     
     /* Get a timer event once every 100ms for the blink alive. */
     TIMER_SetConfiguration ( TIMER_CONFIGURATION_1MS );
@@ -103,14 +108,35 @@ int main ( void )
         
         RTCC_TimeGet( &time );
         
-        // printf takes nearly 10ms to execute
-        printf( "Time %02d:%02d:%02d   Pot = %4d, %4d\r\n", 
+        if(BUTTON_IsPressed( BUTTON_WR_EEPROM ) == true)
+        {
+            uint16 check;
+            check = EEPROM_write(adcResult, EEPROM_addr_Pot);
+            check = 0;
+        }
+        
+        if(BUTTON_IsPressed( BUTTON_RD_EEPROM ) == true)
+        {
+            // printf takes nearly 10ms to execute
+            printf( "Time %02d:%02d:%02d   EEPROM = %4d   \r\n", 
+                time.hour, 
+                time.minute, 
+                time.second, 
+                EEPROM_read(EEPROM_addr_Pot)
+              );
+        }
+        else
+        {
+            // printf takes nearly 10ms to execute
+            printf( "Time %02d:%02d:%02d   Pot = %4d, %4d\r\n", 
                 time.hour, 
                 time.minute, 
                 time.second, 
                 adcResult,
                 Temp_adc
               );
+        }
+        
 
         /* To determine how the LED and Buttons are mapped to the actual board
          * features, please see io_mapping.h. */
