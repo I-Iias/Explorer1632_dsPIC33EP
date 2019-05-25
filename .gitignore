@@ -1,3 +1,5 @@
-nbproject
+nbproject/Makefile-*
+nbproject/Package-*
+nbproject/private
 build
 dist
